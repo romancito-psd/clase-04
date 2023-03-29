@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Diseño y nuevos medios" />
+        <link href="style.css" rel="stylesheet" />
+        <title>DNO037 | Evaluación Nº1</title>
+    </head>
+    <body>
+        <header></header>
+        <footer>
+            <div><a href="index.html">⬅	 volver</a></div>
+            <div id="controles"></div>
+            <div><a href="#" id="descargar">📥 descargar</a></div>
+            <div><a href="#" id="borrar">✖ borrar todo</a></div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js" integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            var palabra_pasada = new URLSearchParams(window.location.search).get('data');
+            var elColor;
+            var elSlider;
+
+            function setup() {
+                var title = select("header");
+                createElement("h1", "Aceptaste dibujar a " + palabra_pasada).parent(title);
+                var descarga = select("#descargar");
+                descarga.mousePressed(descargador);
+                var borra = select("#borrar");
+                borra.mousePressed(borrador);
+                elColor = createColorPicker("#000000").parent("controles");
+                elSlider = createSlider(1, 5, 3).parent("controles");
+                createCanvas(windowWidth, windowHeight).position(0, 0).style("z-index", -1);
+                background("#eceff1");
+            }
+
+            function draw() {
+                stroke(elColor.color());
+                strokeWeight(elSlider.value());
+                if (mouseIsPressed) {
+                    line(pmouseX, pmouseY, mouseX, mouseY);
+                }
+            }
+
+            function descargador() {
+                saveCanvas(palabra_pasada, "jpg");
+            }
+
+            function borrador() {
+               background("#eceff1")
+            }
+
+          
+        </script>
+    </body>
+</html>
